@@ -1,0 +1,29 @@
+<div class="container-wide w-full pb-8 md:pb-10">
+  <h2 class="mb-4 text-4xl font-headers font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+    {{ 'Hi @name,'|t({'@name': name}) }}
+  </h2>
+  {% if state == "eligible" %}
+    <p class="mb-6 text-lg">
+      {{ 'Click <a href="@url" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">here</a>'|t({'@url': url})|raw }}
+    </p>
+    <p class="mb-6 text-sm text-gray-600">
+      {{ 'if you would like to subscribe to this group called "@label"'|t({'@label': label}) }}
+    </p>
+  {% endif %}
+  {% if state == "owner" %}
+    <p class="mb-6 text-sm text-gray-600">
+      {{ 'You are the owner of this group called "@label"'|t({'@label': label}) }}
+    </p>
+  {% endif %}
+  {% if state == "anonymous" %}
+    <p class="mb-6 text-lg">
+      {{ 'Please <a href="@login" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">login</a> or <a href="@register" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">register</a>'|t({
+        '@login': path('user.login'),
+        '@register': path('user.register')
+      })|raw }}
+    </p>
+    <p class="mb-6 text-sm text-gray-600">
+      {{ 'to join this group called "@label"'|t({'@label': label})|raw }}
+    </p>
+  {% endif %}
+</div>
