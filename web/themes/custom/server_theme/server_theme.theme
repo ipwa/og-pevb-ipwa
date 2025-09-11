@@ -282,6 +282,13 @@ function server_theme_theme() {
     ],
   ];
 
+  // A set of inline buttons.
+  $info['server_theme_buttons_inline'] = [
+    'variables' => [
+      'element' => [],
+    ],
+  ];
+
   // A simple horizontal line separator.
   $info['server_theme_line_separator'] = [
     'variables' => [],
@@ -414,6 +421,13 @@ function server_theme_theme() {
 
   // Wrap a text with center alignment.
   $info['server_theme_text_decoration__center'] = [
+    'variables' => [
+      'element' => [],
+    ],
+  ];
+
+  // Wrap a text with a pill.
+  $info['server_theme_text_pill'] = [
     'variables' => [
       'element' => [],
     ],

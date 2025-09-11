@@ -12,7 +12,6 @@ module.exports = {
     },
     fontFamily: {
       'headers': ["Roboto", 'sans-serif'],
-      'body': ["Open Sans", 'sans-serif'],
     }
   },
   content: [

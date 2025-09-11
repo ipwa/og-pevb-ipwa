@@ -23,6 +23,27 @@ use Drupal\server_general\ThemeTrait\Enum\WidthEnum;
 trait ElementWrapThemeTrait {
 
   /**
+   * Wrap a set of buttons in an inline container.
+   *
+   * @param array|string|\Drupal\Core\StringTranslation\TranslatableMarkup $element
+   *   The render array, string or a TranslatableMarkup object.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function wrapButtonsInline(array $element): array {
+    $element = $this->filterEmptyElements($element);
+    if (empty($element)) {
+      return [];
+    }
+
+    return [
+      '#theme' => 'server_theme_buttons_inline',
+      '#element' => $element,
+    ];
+  }
+
+  /**
    * Wrap an element with a wide container, and optional background color.
    *
    * @param array $element
@@ -420,6 +441,27 @@ trait ElementWrapThemeTrait {
     return [
       '#theme' => 'server_theme_text_decoration__font_weight',
       '#font_weight' => $weight->value,
+      '#element' => $element,
+    ];
+  }
+
+  /**
+   * Wrap a text with pill styling.
+   *
+   * @param array|string|\Drupal\Core\StringTranslation\TranslatableMarkup $element
+   *   The render array, string or a TranslatableMarkup object.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function wrapTextPill(array|string|TranslatableMarkup $element): array {
+    $element = $this->filterEmptyElements($element);
+    if (empty($element)) {
+      return [];
+    }
+
+    return [
+      '#theme' => 'server_theme_text_pill',
       '#element' => $element,
     ];
   }
