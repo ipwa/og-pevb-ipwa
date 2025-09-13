@@ -23,6 +23,27 @@ use Drupal\server_general\ThemeTrait\Enum\WidthEnum;
 trait ElementWrapThemeTrait {
 
   /**
+   * Wrap a set of buttons in an inline container.
+   *
+   * @param array|string|\Drupal\Core\StringTranslation\TranslatableMarkup $element
+   *   The render array, string or a TranslatableMarkup object.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function wrapButtonsInline(array $element): array {
+    $element = $this->filterEmptyElements($element);
+    if (empty($element)) {
+      return [];
+    }
+
+    return [
+      '#theme' => 'server_theme_buttons_inline',
+      '#element' => $element,
+    ];
+  }
+
+  /**
    * Wrap an element with a wide container, and optional background color.
    *
    * @param array $element
@@ -99,6 +120,30 @@ trait ElementWrapThemeTrait {
   }
 
   /**
+   * Wrap an element with a regular vertical spacing.
+   *
+   * @param array $element
+   *   Render array.
+   * @param \Drupal\server_general\ThemeTrait\Enum\AlignmentEnum $align
+   *   Determine the alignment of flex.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function wrapContainerVerticalSpacingPerson(array $element): array {
+    $element = $this->filterEmptyElements($element);
+    if (empty($element)) {
+      // Element is empty, so no need to wrap it.
+      return [];
+    }
+
+    return [
+      '#theme' => 'server_theme_container_vertical_spacing_person',
+      '#items' => $element,
+    ];
+  }
+
+  /**
    * Wrap an element with a tiny vertical spacing (8px).
    *
    * @param array $element
@@ -170,6 +215,30 @@ trait ElementWrapThemeTrait {
       '#theme' => 'server_theme_container_vertical_spacing_huge',
       '#items' => $element,
       '#align' => $align->value,
+    ];
+  }
+
+  /**
+   * Wrap an element with vertical spacing for cards.
+   *
+   * @param array $element
+   *   Render array.
+   * @param \Drupal\server_general\ThemeTrait\Enum\AlignmentEnum $align
+   *   Determine the alignment of flex.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function wrapContainerVerticalSpacingCards(array $element): array {
+    $element = $this->filterEmptyElements($element);
+    if (empty($element)) {
+      // Element is empty, so no need to wrap it.
+      return [];
+    }
+
+    return [
+      '#theme' => 'server_theme_container_vertical_spacing_cards',
+      '#items' => $element,
     ];
   }
 
@@ -420,6 +489,27 @@ trait ElementWrapThemeTrait {
     return [
       '#theme' => 'server_theme_text_decoration__font_weight',
       '#font_weight' => $weight->value,
+      '#element' => $element,
+    ];
+  }
+
+  /**
+   * Wrap a text with pill styling.
+   *
+   * @param array|string|\Drupal\Core\StringTranslation\TranslatableMarkup $element
+   *   The render array, string or a TranslatableMarkup object.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function wrapTextPill(array|string|TranslatableMarkup $element): array {
+    $element = $this->filterEmptyElements($element);
+    if (empty($element)) {
+      return [];
+    }
+
+    return [
+      '#theme' => 'server_theme_text_pill',
       '#element' => $element,
     ];
   }

@@ -58,6 +58,22 @@ trait InnerElementLayoutThemeTrait {
   }
 
   /**
+   * Build "Person card" layout.
+   *
+   * @param array $items
+   *   The elements as render array.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function buildInnerElementLayoutPerson(array $items): array {
+    return [
+      '#theme' => 'server_theme_inner_element_layout__centered',
+      '#items' => $this->wrapContainerVerticalSpacingPerson($items),
+    ];
+  }
+
+  /**
    * Build "Card with image" layout.
    *
    * This is the "base" helper method for rendering a card with image. Specific

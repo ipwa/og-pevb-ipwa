@@ -41,6 +41,13 @@ function server_theme_theme() {
     ],
   ];
 
+  // A wrapper for Persons.
+  $info['server_theme_container_vertical_spacing_person'] = [
+    'variables' => [
+      'items' => [],
+    ],
+  ];
+
   // A wrapper that has a `gap-y-2` (8px) between all elements. Often used for
   // smaller elements that need to be composed.
   $info['server_theme_container_vertical_spacing_tiny'] = [
@@ -63,6 +70,14 @@ function server_theme_theme() {
     'variables' => [
       'items' => [],
       'align' => NULL,
+    ],
+  ];
+
+  // A wrapper that has a `gap-y-2` (8px) between all elements. Often used for
+  // smaller elements that need to be composed.
+  $info['server_theme_container_vertical_spacing_cards'] = [
+    'variables' => [
+      'items' => [],
     ],
   ];
 
@@ -282,6 +297,26 @@ function server_theme_theme() {
     ],
   ];
 
+  // A single Button for cards.
+  $info['server_theme_card_button'] = [
+    'variables' => [
+      'url' => NULL,
+      // The button's text.
+      'title'  => NULL,
+      // Specify button type. One of: 'mail' or 'phone'.
+      'button_type' => NULL,
+      // If TRUE, it will open the link in a new tab.
+      'open_new_tab' => NULL,
+    ],
+  ];
+
+  // A set of inline buttons.
+  $info['server_theme_buttons_inline'] = [
+    'variables' => [
+      'element' => [],
+    ],
+  ];
+
   // A simple horizontal line separator.
   $info['server_theme_line_separator'] = [
     'variables' => [],
@@ -414,6 +449,13 @@ function server_theme_theme() {
 
   // Wrap a text with center alignment.
   $info['server_theme_text_decoration__center'] = [
+    'variables' => [
+      'element' => [],
+    ],
+  ];
+
+  // Wrap a text with a pill.
+  $info['server_theme_text_pill'] = [
     'variables' => [
       'element' => [],
     ],

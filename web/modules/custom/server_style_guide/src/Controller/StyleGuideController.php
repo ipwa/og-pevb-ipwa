@@ -26,6 +26,7 @@ use Drupal\server_general\ThemeTrait\InfoCardThemeTrait;
 use Drupal\server_general\ThemeTrait\LinkThemeTrait;
 use Drupal\server_general\ThemeTrait\NewsTeasersThemeTrait;
 use Drupal\server_general\ThemeTrait\PeopleTeasersThemeTrait;
+use Drupal\server_general\ThemeTrait\PersonCardsThemeTrait;
 use Drupal\server_general\ThemeTrait\QuickLinksThemeTrait;
 use Drupal\server_general\ThemeTrait\QuoteThemeTrait;
 use Drupal\server_general\ThemeTrait\SearchThemeTrait;
@@ -58,6 +59,7 @@ class StyleGuideController extends ControllerBase {
   use LinkThemeTrait;
   use NewsTeasersThemeTrait;
   use PeopleTeasersThemeTrait;
+  use PersonCardsThemeTrait;
   use QuickLinksThemeTrait;
   use QuoteThemeTrait;
   use SearchThemeTrait;
@@ -192,6 +194,9 @@ class StyleGuideController extends ControllerBase {
     $element = $this->getPeopleTeasers();
     $build[] = $this->wrapElementNoContainer($element, 'Element: People teasers');
 
+    $element = $this->getPersonCards();
+    $build[] = $this->wrapElementNoContainer($element, 'Element: Person cards');
+
     $element = $this->getQuote();
     $build[] = $this->wrapElementNoContainer($element, 'Element: Quote');
 
@@ -294,6 +299,108 @@ class StyleGuideController extends ControllerBase {
       $items,
     );
   }
+
+  /**
+   * Get Person cards element.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function getPersonCards(): array {
+    $items = [];
+
+    $people = [
+      [
+        'name' => 'Michael Scott',
+        'subtitle' => 'Regional Manager',
+        'role' => 'Management',
+        'email' => 'michael.scott@dundermifflin.com',
+        'phone' => '570-555-0101'
+      ],
+      [
+        'name' => 'Dwight Schrute',
+        'subtitle' => 'Assistant to the Regional Manager',
+        'role' => 'Sales',
+        'email' => 'dwight.schrute@dundermifflin.com',
+        'phone' => '570-555-0102'
+      ],
+      [
+        'name' => 'Jim Halpert',
+        'subtitle' => 'Salesman',
+        'role' => 'Sales',
+        'email' => 'jim.halpert@dundermifflin.com',
+        'phone' => '570-555-0103'
+      ],
+      [
+        'name' => 'Pam Beesly (Halpert)',
+        'subtitle' => 'Receptionist',
+        'role' => 'Administration',
+        'email' => 'pam.beesly@dundermifflin.com',
+        'phone' => '570-555-0104'
+      ],
+      [
+        'name' => 'Ryan Howard',
+        'subtitle' => 'Temp',
+        'role' => 'Sales',
+        'email' => 'ryan.howard@dundermifflin.com',
+        'phone' => '570-555-0105'
+      ],
+      [
+        'name' => 'Angela Martin',
+        'subtitle' => 'Senior Accountant',
+        'role' => 'Accounting',
+        'email' => 'angela.martin@dundermifflin.com',
+        'phone' => '570-555-0106'
+      ],
+      [
+        'name' => 'Oscar Martinez',
+        'subtitle' => 'Accountant',
+        'role' => 'Accounting',
+        'email' => 'oscar.martinez@dundermifflin.com',
+        'phone' => '570-555-0107'
+      ],
+      [
+        'name' => 'Kevin Malone',
+        'subtitle' => 'Accountant',
+        'role' => 'Accounting',
+        'email' => 'kevin.malone@dundermifflin.com',
+        'phone' => '570-555-0108'
+      ],
+      [
+        'name' => 'Stanley Hudson',
+        'subtitle' => 'Senior Salesman',
+        'role' => 'Sales',
+        'email' => 'stanley.hudson@dundermifflin.com',
+        'phone' => '570-555-0109'
+      ],
+      [
+        'name' => 'Phyllis Lapin-Vance',
+        'subtitle' => 'Party Planning Committee',
+        'role' => 'Sales',
+        'email' => 'phyllis.lapin@dundermifflin.com',
+        'phone' => '570-555-0110'
+      ]
+    ];
+
+    foreach ($people as $person) {
+      $items[] = $this->buildElementPersonCard(
+        $this->getPlaceholderPersonImage(128),
+        'The image alt ' . $person['name'],
+        $person['name'],
+        $person['subtitle'] ?? null,
+        $person['role'] ?? null,
+        $person['email'] ?? null,
+        $person['phone'] ?? null
+      );
+    }
+
+    return $this->buildElementPersonCards(
+      $this->getRandomTitle(),
+      $this->buildProcessedText('This is a directory list of awesome people'),
+      $items
+    );
+  }
+
 
   /**
    * Get Media image with credit and caption.
