@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function og_pevb_ipwa_theme($existing, $type, $theme, $path) {
+  return [
+    'og_group_subscription_suggestion' => [
+      'variables' => [
+        'headline' => NULL,
+        'button' => NULL,
+        'message' => NULL,
+      ],
+      'template' => 'og-group-subscription-suggestion',
+    ],
+  ];
+}

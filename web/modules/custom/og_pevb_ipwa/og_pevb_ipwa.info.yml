@@ -1,0 +1,10 @@
+name: OG PEVB demo from ipwa
+type: module
+description: "Adds a PEVB CTA on Group full view to offer subscription."
+core_version_requirement: ^10 || ^11
+package: Custom
+dependencies:
+  - node
+  - og
+  - og_access
+  - pluggable_entity_view_builder
