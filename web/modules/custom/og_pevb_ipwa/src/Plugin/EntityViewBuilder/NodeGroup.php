@@ -163,17 +163,17 @@ class NodeGroup extends NodeViewBuilderAbstract {
         $state = $membership->getState();
 
         if ($state === \Drupal\og\OgMembershipInterface::STATE_ACTIVE) {
-          $variables['message'] = $this->t('You are already subscribed to this group called "@label"', [
+          $variables['message'] = $this->t('You are already subscribed to "@label"', [
             '@label' => $entity->label(),
           ]);
         }
         elseif ($state === \Drupal\og\OgMembershipInterface::STATE_BLOCKED) {
-          $variables['message'] = $this->t('You are blocked from subscribing to this group called "@label"', [
+          $variables['message'] = $this->t('You are blocked from subscribing to "@label"', [
             '@label' => $entity->label(),
           ]);
         }
         elseif ($state === \Drupal\og\OgMembershipInterface::STATE_PENDING) {
-          $variables['message'] = $this->t('Your subscription request to "@label" is pending approval', [
+          $variables['message'] = $this->t('Your subscription to "@label" is pending approval', [
             '@label' => $entity->label(),
           ]);
         }
