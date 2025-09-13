@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7700566f34d22154e2e2fb2cae0ed35",
+    "content-hash": "809b10a11d7410d781227b585a3dae4d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4428,160 +4428,6 @@
                 "source": "https://git.drupalcode.org/project/migrate_tools",
                 "issues": "https://www.drupal.org/project/issues/migrate_tools",
                 "slack": "#migrate"
-            }
-        },
-        {
-            "name": "drupal/og",
-            "version": "2.0.0-alpha1",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/og.git",
-                "reference": "2.0.0-alpha1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/og-2.0.0-alpha1.zip",
-                "reference": "2.0.0-alpha1",
-                "shasum": "8716eaad445b1a909047afe6ff98cc1c1494237f"
-            },
-            "require": {
-                "drupal/core": "^10.3 || ^11"
-            },
-            "require-dev": {
-                "drupal/coder": "^8.3.16",
-                "drush/drush": "^12.5 || ^13.3",
-                "phpunit/phpunit": "^7 || ^8 || ^9 || ^10.5"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.0.0-alpha1",
-                    "datestamp": "1744224067",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "amitaibu",
-                    "homepage": "https://www.drupal.org/u/amitaibu"
-                },
-                {
-                    "name": "mpp",
-                    "homepage": "https://www.drupal.org/u/mpp"
-                },
-                {
-                    "name": "pfrenssen",
-                    "homepage": "https://www.drupal.org/u/pfrenssen"
-                },
-                {
-                    "name": "dries",
-                    "homepage": "https://www.drupal.org/user/1"
-                },
-                {
-                    "name": "dww",
-                    "homepage": "https://www.drupal.org/user/46549"
-                },
-                {
-                    "name": "Grayside",
-                    "homepage": "https://www.drupal.org/user/346868"
-                },
-                {
-                    "name": "joelpittet",
-                    "homepage": "https://www.drupal.org/user/160302"
-                },
-                {
-                    "name": "merlinofchaos",
-                    "homepage": "https://www.drupal.org/user/26979"
-                },
-                {
-                    "name": "moshe weitzman",
-                    "homepage": "https://www.drupal.org/user/23"
-                },
-                {
-                    "name": "mpp",
-                    "homepage": "https://www.drupal.org/user/359881"
-                },
-                {
-                    "name": "pfrenssen",
-                    "homepage": "https://www.drupal.org/user/382067"
-                },
-                {
-                    "name": "roysegall",
-                    "homepage": "https://www.drupal.org/user/1812910"
-                },
-                {
-                    "name": "sethcohn",
-                    "homepage": "https://www.drupal.org/user/14944"
-                },
-                {
-                    "name": "Zen",
-                    "homepage": "https://www.drupal.org/user/21209"
-                }
-            ],
-            "description": "API to allow associating content with groups.",
-            "homepage": "https://drupal.org/project/og",
-            "support": {
-                "source": "https://git.drupalcode.org/project/og",
-                "issues": "https://drupal.org/project/issues/og",
-                "slack": "https://drupal.slack.com/messages/CELR48EA0"
-            }
-        },
-        {
-            "name": "drupal/og_access",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/og_access.git",
-                "reference": "2.0.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/og_access-2.0.0.zip",
-                "reference": "2.0.0",
-                "shasum": "d1ccdd7ff1a6f13806ebffecea87baef67f46ba2"
-            },
-            "require": {
-                "drupal/core": "^10 || ^11 || ^12",
-                "drupal/og": "^2.0"
-            },
-            "require-dev": {
-                "drupal/coder": "^8.3.16",
-                "drush/drush": "^12.5 || ^13.3"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.0.0",
-                    "datestamp": "1755030899",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "joelpittet",
-                    "homepage": "https://www.drupal.org/u/joelpittet"
-                }
-            ],
-            "description": "Enables access control for private and public groups and group content within Organic Groups.",
-            "homepage": "https://drupal.org/project/og_access",
-            "support": {
-                "source": "https://git.drupalcode.org/project/og_access",
-                "issues": "https://drupal.org/project/issues/og_access",
-                "slack": "https://drupal.slack.com/messages/CELR48EA0"
             }
         },
         {
@@ -17707,7 +17553,6 @@
         "drupal/default_content": 15,
         "drupal/drupal_test_assertions": 20,
         "drupal/inline_entity_form": 5,
-        "drupal/og": 15,
         "drupal/potx": 15,
         "drupal/ultimate_cron": 15
     },
