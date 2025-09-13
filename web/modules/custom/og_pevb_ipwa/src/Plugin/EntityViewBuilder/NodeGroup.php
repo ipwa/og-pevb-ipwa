@@ -12,6 +12,8 @@ use Drupal\og\MembershipManagerInterface;
 use Drupal\og\OgAccessInterface;
 use Drupal\server_general\EntityViewBuilder\NodeViewBuilderAbstract;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\og\OgMembershipInterface;
+use Drupal\Core\Cache\Cache;
 
 /**
  * Provides a view builder plugin for the "Group" content type.
@@ -115,16 +117,20 @@ class NodeGroup extends NodeViewBuilderAbstract {
    */
   protected function buildSubscriptionSuggestion(NodeInterface $entity): array {
     $variables = [
-      'name' => $this->currentUser->isAuthenticated() ? $this->currentUser->getDisplayName() : 'friend',
-      'label' => $entity->label(),
       'headline' => '',
       'message' => '',
       'button' => NULL,
     ];
 
+    $name = $this->currentUser->isAuthenticated()
+      ? $this->currentUser->getDisplayName()
+      : $this->t('friend');
+
+    // Always start with a headline.
+    $variables['headline'] = $this->t('Hi @name,', ['@name' => $name]);
+
     // Case 1: Anonymous user.
     if ($this->currentUser->isAnonymous()) {
-      $variables['headline'] = $this->t('Hi @name,', ['@name' => $variables['name']]);
       $variables['button'] = [
         'login' => [
           'title' => $this->t('Login'),
@@ -135,26 +141,59 @@ class NodeGroup extends NodeViewBuilderAbstract {
           'url' => Url::fromRoute('user.register')->toString(),
         ],
       ];
-      $variables['message'] = $this->t('to join this group called "@label"', ['@label' => $variables['label']]);
+      $variables['message'] = $this->t('to join this group called "@label"', [
+        '@label' => $entity->label(),
+      ]);
     }
     // Case 2: Group owner.
     elseif ($entity->getOwnerId() === $this->currentUser->id()) {
-      $variables['headline'] = $this->t('Hi @name,', ['@name' => $variables['name']]);
-      $variables['message'] = $this->t('You are the owner of this group called "@label"', ['@label' => $variables['label']]);
-    }
-    // Case 3: Authenticated user who can subscribe.
-    elseif ($this->canUserSubscribe($this->currentUser, $entity)) {
-      $variables['headline'] = $this->t('Hi @name,', ['@name' => $variables['name']]);
-      $variables['button'] = [
-        'subscribe' => [
-          'title' => $this->t('Subscribe'),
-          'url' => Url::fromUri('internal:/group/' . $entity->getEntityTypeId() . '/' . $entity->id() . '/subscribe')->toString(),
-        ],
-      ];
-      $variables['message'] = $this->t('to this group called "@label"', ['@label' => $variables['label']]);
+      $variables['message'] = $this->t('You are the owner of this group called "@label"', [
+        '@label' => $entity->label(),
+      ]);
     }
     else {
-      return [];
+      // Look up membership in any state.
+      $membership = $this->membershipManager->getMembership(
+        $entity,
+        $this->currentUser->id(),
+        [] // empty array = all states.
+      );
+
+      if ($membership) {
+        $state = $membership->getState();
+
+        if ($state === \Drupal\og\OgMembershipInterface::STATE_ACTIVE) {
+          $variables['message'] = $this->t('You are already subscribed to this group called "@label"', [
+            '@label' => $entity->label(),
+          ]);
+        }
+        elseif ($state === \Drupal\og\OgMembershipInterface::STATE_BLOCKED) {
+          $variables['message'] = $this->t('You are blocked from subscribing to this group called "@label"', [
+            '@label' => $entity->label(),
+          ]);
+        }
+        elseif ($state === \Drupal\og\OgMembershipInterface::STATE_PENDING) {
+          $variables['message'] = $this->t('Your subscription request to "@label" is pending approval', [
+            '@label' => $entity->label(),
+          ]);
+        }
+      }
+      elseif ($this->canUserSubscribe($this->currentUser, $entity)) {
+        // Eligible user.
+        $variables['button'] = [
+          'subscribe' => [
+            'title' => $this->t('Subscribe'),
+            'url' => Url::fromUri('internal:/group/' . $entity->getEntityTypeId() . '/' . $entity->id() . '/subscribe')->toString(),
+          ],
+        ];
+        $variables['message'] = $this->t('to this group called "@label"', [
+          '@label' => $entity->label(),
+        ]);
+      }
+      else {
+        // No suggestion at all.
+        return [];
+      }
     }
 
     return [
@@ -162,6 +201,13 @@ class NodeGroup extends NodeViewBuilderAbstract {
       '#headline' => $variables['headline'],
       '#message' => $variables['message'],
       '#button' => $variables['button'],
+      '#cache' => [
+        'contexts' => \Drupal\Core\Cache\Cache::mergeContexts(
+          $entity->getCacheContexts(),
+          ['user']
+        ),
+        'tags' => $entity->getCacheTags(),
+      ],
     ];
   }
 
@@ -169,10 +215,27 @@ class NodeGroup extends NodeViewBuilderAbstract {
    * Determines whether a user can subscribe to a group.
    */
   protected function canUserSubscribe(AccountProxyInterface $account, NodeInterface $group): bool {
-    if ($this->membershipManager->isMember($group, $account)) {
-      return FALSE;
+    // Use the user ID.
+    $user_id = $account->id();
+
+    // Ask for membership across ALL states by passing an empty array.
+    // (MembershipManager defaults to STATE_ACTIVE if you omit the third argument.)
+    $membership = $this->membershipManager->getMembership($group, $user_id, []);
+
+    if ($membership) {
+      $state = $membership->getState();
+
+      // Deny subscribe if already active, blocked or pending.
+      if (in_array($state, [
+        OgMembershipInterface::STATE_ACTIVE,
+        OgMembershipInterface::STATE_BLOCKED,
+        OgMembershipInterface::STATE_PENDING,
+      ], TRUE)) {
+        return FALSE;
+      }
     }
 
+    // Fall back to OG access check for the 'subscribe' operation.
     return $this->ogAccess->userAccess($group, 'subscribe', $account)->isAllowed();
   }
 
