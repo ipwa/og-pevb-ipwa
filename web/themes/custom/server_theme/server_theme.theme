@@ -66,6 +66,14 @@ function server_theme_theme() {
     ],
   ];
 
+  // A wrapper that has a `gap-y-2` (8px) between all elements. Often used for
+  // smaller elements that need to be composed.
+  $info['server_theme_container_vertical_spacing_cards'] = [
+    'variables' => [
+      'items' => [],
+    ],
+  ];
+
   // A wrapper that adds a bottom padding `pb-10`. This is likely used on non
   // Landing page PEVB wrapping all the elements, so they have a bottom padding
   // before the footer. For Landing page elements, it's likely not going to be
@@ -268,6 +276,22 @@ function server_theme_theme() {
 
   // A single Button.
   $info['server_theme_button'] = [
+    'variables' => [
+      'url' => NULL,
+      // The button's text.
+      'title'  => NULL,
+      // Specify button type. One of: 'primary', 'secondary' or 'tertiary'.
+      'button_type' => NULL,
+      // Specify an icon. Any icon should be added as SVG in
+      // `server-theme-button`.
+      'icon' => NULL,
+      // If TRUE, it will open the link in a new tab.
+      'open_new_tab' => NULL,
+    ],
+  ];
+
+  // A single Button for cards.
+  $info['server_theme_card_button'] = [
     'variables' => [
       'url' => NULL,
       // The button's text.

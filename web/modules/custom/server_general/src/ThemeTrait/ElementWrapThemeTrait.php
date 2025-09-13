@@ -195,6 +195,30 @@ trait ElementWrapThemeTrait {
   }
 
   /**
+   * Wrap an element with vertical spacing for cards.
+   *
+   * @param array $element
+   *   Render array.
+   * @param \Drupal\server_general\ThemeTrait\Enum\AlignmentEnum $align
+   *   Determine the alignment of flex.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function wrapContainerVerticalSpacingCards(array $element): array {
+    $element = $this->filterEmptyElements($element);
+    if (empty($element)) {
+      // Element is empty, so no need to wrap it.
+      return [];
+    }
+
+    return [
+      '#theme' => 'server_theme_container_vertical_spacing_cards',
+      '#items' => $element,
+    ];
+  }
+
+  /**
    * Conditionally wrap an element with bottom padding.
    *
    * @param array $element

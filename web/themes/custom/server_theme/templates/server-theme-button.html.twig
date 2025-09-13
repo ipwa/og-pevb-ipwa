@@ -2,23 +2,17 @@
 {# `Download` button uses the same look as a `secondary` button #}
 {% set actual_button_type = is_download ? 'secondary' : button_type %}
 
-{% set is_mail = button_type == 'mail' %}
-{% set is_phone = button_type == 'phone' %}
-
 {% set classes = [
-  'cursor-pointer px-6 py-3 w-fit transition duration-300',
-  actual_button_type == 'primary' ? 'text-xl border-2 border-blue-500 rounded-lg bg-blue-500 hover:bg-blue-600 text-white hover:bg-white hover:text-blue-500 focus-visible:bg-white focus-visible:text-blue-500',
-  actual_button_type == 'secondary' ? 'text-xl border-2 border-blue-500 rounded-lg text-blue-900 bg-white border-blue-900 hover:text-white hover:bg-blue-900 focus-visible:text-white focus-visible:bg-blue-900',
-  actual_button_type == 'tertiary' ? 'text-xl border-2 border-blue-500 rounded-lg text-white bg-emerald-900 hover:bg-blue-600 border-emerald-900 hover:text-emerald-900 hover:bg-white focus-visible:text-emerald-900 focus-visible:bg-white',
-  button_type == 'mail' ? 'flex-1 flex items-center justify-center space-x-2 text-gray-700 hover:text-gray-400',
-  button_type == 'phone' ? 'flex-1 flex items-center justify-center space-x-2 text-gray-700 hover:text-gray-400',
+  'flex flex-row items-center gap-x-4 rounded-lg px-6 py-3 text-xl border-2 border-blue-500 hover:bg-blue-600 w-fit transition duration-300',
+  actual_button_type == 'primary' ? 'bg-blue-500 text-white hover:bg-white hover:text-blue-500 focus-visible:bg-white focus-visible:text-blue-500',
+  actual_button_type == 'secondary' ? 'text-blue-900 bg-white border-blue-900 hover:text-white hover:bg-blue-900 focus-visible:text-white focus-visible:bg-blue-900',
+  actual_button_type == 'tertiary' ? 'text-white bg-emerald-900 border-emerald-900 hover:text-emerald-900 hover:bg-white focus-visible:text-emerald-900 focus-visible:bg-white',
 ] | join(' ') | trim %}
 
 {% set target = open_new_tab ? '_blank' : '_self' %}
 
-
-<a class="{{ classes }}" href="{{ url }}" target="{{ target }}" {{ is_download ? 'download'}}>
-  <div class="flex flex-row items-center gap-x-4">
+<div class="inline-block button-wrapper">
+  <a class="{{ classes }}" href="{{ url }}" target="{{ target }}" {{ is_download ? 'download'}}>
 
     {% if is_download %}
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -26,19 +20,6 @@
       </svg>
     {% endif %}
 
-    {% if is_mail %}
-      <svg width="17" height="12" viewBox="0 0 17 12" stroke="currentColor" class="text-gray-400 fill-gray-400" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0.753 1.884L8.75 5.882L16.747 1.884C16.7174 1.37444 16.4941 0.895488 16.1228 0.545227C15.7516 0.194965 15.2604 -9.35847e-05 14.75 3.36834e-08H2.75C2.23958 -9.35847e-05 1.74845 0.194965 1.37718 0.545227C1.00591 0.895488 0.782604 1.37444 0.753 1.884Z" />
-        <path d="M16.75 4.118L8.75 8.118L0.75 4.118V10C0.75 10.5304 0.960714 11.0391 1.33579 11.4142C1.71086 11.7893 2.21957 12 2.75 12H14.75C15.2804 12 15.7891 11.7893 16.1642 11.4142C16.5393 11.0391 16.75 10.5304 16.75 10V4.118Z" />
-      </svg>
-    {% endif %}
-
-    {% if is_phone %}
-      <svg width="17" height="16" viewBox="0 0 17 16" stroke="currentColor" class="text-gray-400 fill-gray-400" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0.25 1C0.25 0.447715 0.697715 0 1.25 0H3.40287C3.89171 0 4.3089 0.353413 4.38927 0.835601L5.12858 5.27147C5.20075 5.70451 4.98206 6.13397 4.5894 6.3303L3.04126 7.10437C4.15756 9.87832 6.37168 12.0924 9.14563 13.2087L9.9197 11.6606C10.116 11.2679 10.5455 11.0492 10.9785 11.1214L15.4144 11.8607C15.8966 11.9411 16.25 12.3583 16.25 12.8471V15C16.25 15.5523 15.8023 16 15.25 16H13.25C6.0703 16 0.25 10.1797 0.25 3V1Z" />
-      </svg>
-    {% endif %}
-
     <div>{{ title }}</div>
-  </div>
-</a>
+  </a>
+</div>

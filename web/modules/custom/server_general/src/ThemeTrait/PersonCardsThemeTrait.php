@@ -100,7 +100,7 @@ trait PersonCardsThemeTrait {
     if (!empty($email)) {
       $email_element = [
         '#type' => 'link',
-        '#theme' => 'server_theme_button',
+        '#theme' => 'server_theme_card_button',
         '#title' => 'Email',
         '#url' => \Drupal\Core\Url::fromUri('mailto:' . $email),
         '#button_type' => 'mail',
@@ -113,7 +113,7 @@ trait PersonCardsThemeTrait {
     if (!empty($phone)) {
       $phone_element = [
         '#type' => 'link',
-        '#theme' => 'server_theme_button',
+        '#theme' => 'server_theme_card_button',
         '#title' => 'Call',
         '#url' => \Drupal\Core\Url::fromUri('tel:' . $phone),
         '#button_type' => 'phone',
@@ -127,7 +127,7 @@ trait PersonCardsThemeTrait {
       $inner_elements[] = $this->wrapButtonsInline($cta_elements);
     }
 
-    $elements[] = $this->wrapContainerVerticalSpacingTiny($inner_elements, AlignmentEnum::Center);
+    $elements[] = $this->wrapContainerVerticalSpacingCards($inner_elements);
 
     return $this->buildInnerElementLayoutCentered($elements);
   }
