@@ -120,6 +120,30 @@ trait ElementWrapThemeTrait {
   }
 
   /**
+   * Wrap an element with a regular vertical spacing.
+   *
+   * @param array $element
+   *   Render array.
+   * @param \Drupal\server_general\ThemeTrait\Enum\AlignmentEnum $align
+   *   Determine the alignment of flex.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function wrapContainerVerticalSpacingPerson(array $element): array {
+    $element = $this->filterEmptyElements($element);
+    if (empty($element)) {
+      // Element is empty, so no need to wrap it.
+      return [];
+    }
+
+    return [
+      '#theme' => 'server_theme_container_vertical_spacing_person',
+      '#items' => $element,
+    ];
+  }
+
+  /**
    * Wrap an element with a tiny vertical spacing (8px).
    *
    * @param array $element

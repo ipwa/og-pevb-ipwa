@@ -41,6 +41,13 @@ function server_theme_theme() {
     ],
   ];
 
+  // A wrapper for Persons.
+  $info['server_theme_container_vertical_spacing_person'] = [
+    'variables' => [
+      'items' => [],
+    ],
+  ];
+
   // A wrapper that has a `gap-y-2` (8px) between all elements. Often used for
   // smaller elements that need to be composed.
   $info['server_theme_container_vertical_spacing_tiny'] = [

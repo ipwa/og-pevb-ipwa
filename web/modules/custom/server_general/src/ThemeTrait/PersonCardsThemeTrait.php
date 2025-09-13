@@ -104,7 +104,6 @@ trait PersonCardsThemeTrait {
         '#title' => 'Email',
         '#url' => \Drupal\Core\Url::fromUri('mailto:' . $email),
         '#button_type' => 'mail',
-        '#attributes' => ['class' => ['person-card-email']],
       ];
       $cta_elements[] = $email_element;
     }
@@ -117,7 +116,6 @@ trait PersonCardsThemeTrait {
         '#title' => 'Call',
         '#url' => \Drupal\Core\Url::fromUri('tel:' . $phone),
         '#button_type' => 'phone',
-        '#attributes' => ['class' => ['person-card-phone']],
       ];
       $cta_elements[] = $phone_element;
     }
@@ -129,7 +127,7 @@ trait PersonCardsThemeTrait {
 
     $elements[] = $this->wrapContainerVerticalSpacingCards($inner_elements);
 
-    return $this->buildInnerElementLayoutCentered($elements);
+    return $this->buildInnerElementLayoutPerson($elements);
   }
 
 }
