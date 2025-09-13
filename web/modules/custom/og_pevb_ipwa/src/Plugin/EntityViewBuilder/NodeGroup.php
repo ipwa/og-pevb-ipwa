@@ -115,39 +115,53 @@ class NodeGroup extends NodeViewBuilderAbstract {
    */
   protected function buildSubscriptionSuggestion(NodeInterface $entity): array {
     $variables = [
-      'name' => $this->currentUser->isAuthenticated() ? $this->currentUser->getDisplayName() : NULL,
+      'name' => $this->currentUser->isAuthenticated() ? $this->currentUser->getDisplayName() : 'friend',
       'label' => $entity->label(),
-      'url' => NULL,
-      'state' => NULL,
+      'headline' => '',
+      'message' => '',
+      'button' => NULL,
     ];
 
     // Case 1: Anonymous user.
     if ($this->currentUser->isAnonymous()) {
-      $variables['state'] = 'anonymous';
-      $variables['name'] = 'friend';
+      $variables['headline'] = $this->t('Hi @name,', ['@name' => $variables['name']]);
+      $variables['button'] = [
+        'login' => [
+          'title' => $this->t('Login'),
+          'url' => Url::fromRoute('user.login')->toString(),
+        ],
+        'register' => [
+          'title' => $this->t('Register'),
+          'url' => Url::fromRoute('user.register')->toString(),
+        ],
+      ];
+      $variables['message'] = $this->t('to join this group called "@label"', ['@label' => $variables['label']]);
     }
     // Case 2: Group owner.
     elseif ($entity->getOwnerId() === $this->currentUser->id()) {
-      $variables['state'] = 'owner';
+      $variables['headline'] = $this->t('Hi @name,', ['@name' => $variables['name']]);
+      $variables['message'] = $this->t('You are the owner of this group called "@label"', ['@label' => $variables['label']]);
     }
     // Case 3: Authenticated user who can subscribe.
     elseif ($this->canUserSubscribe($this->currentUser, $entity)) {
-      $variables['state'] = 'eligible';
-      $url = Url::fromUri('internal:/group/' . $entity->getEntityTypeId() . '/' . $entity->id() . '/subscribe');
-      $variables['url'] = $url->toString();
+      $variables['headline'] = $this->t('Hi @name,', ['@name' => $variables['name']]);
+      $variables['button'] = [
+        'subscribe' => [
+          'title' => $this->t('Subscribe'),
+          'url' => Url::fromUri('internal:/group/' . $entity->getEntityTypeId() . '/' . $entity->id() . '/subscribe')->toString(),
+        ],
+      ];
+      $variables['message'] = $this->t('to this group called "@label"', ['@label' => $variables['label']]);
     }
-
-    // If none of the above, no suggestion.
-    if ($variables['state'] === NULL) {
+    else {
       return [];
     }
 
     return [
       '#theme' => 'og_group_subscription_suggestion',
-      '#state' => $variables['state'],
-      '#name' => $variables['name'],
-      '#label' => $variables['label'],
-      '#url' => $variables['url'],
+      '#headline' => $variables['headline'],
+      '#message' => $variables['message'],
+      '#button' => $variables['button'],
     ];
   }
 
